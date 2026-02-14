@@ -1,0 +1,11 @@
+title: FPGA 壓縮算法研究
+description: 壓縮/加密算法 FPGA 實現可行性研究
+theme: jekyll-theme-cayman
+baseurl: "/fpga-compression-docs"
+url: "https://simon99.github.io"
+
+# 導航
+header_pages:
+  - index.md
+  - report.md
+  - algorithms.md
