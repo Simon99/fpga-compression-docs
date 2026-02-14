@@ -180,6 +180,16 @@ void aes_example(void) {
 3. **無動態分配** — 所有內存靜態分配
 4. **純計算** — 無 I/O，純算術操作
 
+### 硬件映射
+
+| AES 操作 | 硬件實現 |
+|----------|---------|
+| S-Box | ROM 或 LUT（256 entries）|
+| ShiftRows | 純連線（無邏輯）|
+| MixColumns | 組合邏輯（GF(2^8) 乘法）|
+| AddRoundKey | XOR 閘 |
+| KeyExpansion | 可預計算存 ROM |
+
 ---
 
 ## 非對稱加密：mbedtls
@@ -235,9 +245,12 @@ mbedtls_mpi_exp_mod()   // 模指數（RSA 核心）
 
 | 替代方案 | GitHub | 說明 |
 |----------|--------|------|
+| **LibTomCrypt** | [libtom/libtomcrypt](https://github.com/libtom/libtomcrypt) | ⭐ 純加密算法庫，RSA 實現清晰 |
+| libtommath | [libtom/libtommath](https://github.com/libtom/libtommath) | 輕量大數庫（LibTomCrypt 依賴）|
 | mini-gmp | GNU 項目 | 最小化大數庫 |
-| libtommath | [libtom/libtommath](https://github.com/libtom/libtommath) | 輕量數學庫 |
 | BearSSL | [BearSSL](https://bearssl.org/) | 輕量 TLS |
+
+> **學習 RSA 推薦：** LibTomCrypt 的 RSA 實現比 mbedtls 更容易理解，適合研究算法原理。
 
 ### Montgomery 乘法（FPGA 核心）
 
@@ -253,6 +266,17 @@ void montgomery_mul(mpi *result, const mpi *A, const mpi *B,
     // 4. 如果 result >= N，result -= N
 }
 ```
+
+---
+
+## 🎯 轉 Verilog 優先級
+
+| 算法 | 推薦代碼 | FPGA 難度 | 優先級 | 說明 |
+|------|---------|----------|--------|------|
+| **AES** | tiny-AES-c | ⭐ 簡單 | 🥇 最高 | 572 行，結構清晰 |
+| **gzip** | zlib | ⭐⭐ 可行 | 🥇 最高 | 成熟參考多 |
+| **bzip2** | bzip2 官方 | ⭐⭐⭐ 中等 | 🥈 次選 | BWT 需要較多資源 |
+| **RSA** | mbedtls | ⭐⭐⭐⭐ 困難 | 🥉 備選 | 建議用 HLS |
 
 ---
 
