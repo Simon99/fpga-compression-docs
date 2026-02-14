@@ -9,3 +9,4 @@ header_pages:
   - index.md
   - report.md
   - algorithms.md
+  - implementations.md

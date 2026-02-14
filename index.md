@@ -27,6 +27,7 @@ title: 首頁
 
 - [完整實驗報告](report.html) — 詳細測試數據與分析
 - [算法分析](algorithms.html) — DEFLATE/AES/RSA 實現考量
+- [推薦 C 實作](implementations.html) — zlib / tiny-AES-c / mbedtls 代碼參考
 
 ## 🛠️ 相關資源
 
